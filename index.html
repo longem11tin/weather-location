@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather and Geolocation</title>
+    <style>
+        body {
+            background: grey;
+        }
+           #weatherbug {
+               border:6px solid rgb(red, green, blue);
+               border-radius: 1em;
+               background-color: purple;
+               width: 14em ;
+               padding: 1em;
+               color: white;
+               font-family: sans-serif;
+           }
+        
+        main {
+            margin: auto;
+            padding: 1em;
+            background-color: #eee;
+        }
+        button {
+            display: block;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="findLocation"> Show my location </button>
+        <p id="status">No location yet </p>
+
+        <div id="weatherbug">
+
+            <h1>Weather Bug</h1>
+            <p> No Weather Data </p>
+        </div>
+    <script src="index.js" charset="UTF-8" type="text/javascript"></script>
+</body>
+</html>
