@@ -1,16 +1,17 @@
 const openWeatherKey ='d5b8808f5c8d447dee90e73a25974b6f';
 
-document.querySelector('#findLocation').addEventListener('click', geoLookup, false);
+document.querySelector('#findLocation').addEventListener('click', geoLookup);
+let lon, lat;
 
 function geoLookup() {
 
     const status = document.querySelector('#status');
 
     function success(position) {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
         status.textContent = `lat: ${lat}, lon: ${lon}`;
-        fecthWeatherData(lat, lon);
+        fetchData();
     }
 
     function error(err) {
@@ -26,32 +27,16 @@ function geoLookup() {
     }
 }
 
-let dataWeather = {};
 const p = document.querySelector('#weatherbug p');
 
-function fecthWeatherData(lat , lon) {
-
-    const xhr = new XMLHttpRequest();
-
-    xhr.open('GET', `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherKey}&units=imperial`);
-    xhr.responseText = 'text';
-    console.log(xhr);
-    xhr.addEventListener('load', function () {
-        
-        if (xhr.status === 200) {
-            // p.textContent = 'Đợi đi thằng nhóc ...';
-            dataWeather = JSON.parse(xhr.responseText);
-            showWeatherData();
-        }
-        else {
-            p.textContent = 'Error ' + xhr.status;
-        }
-    }, false);
-
-    xhr.send();
-}
-
-function showWeatherData() {
+const fetchData = async() => {
+    
+    const postApi = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherKey}&units=imperial`;
+    const response = await fetch(postApi);
+    const dataWeather = await response.json();
+    // console.log(response);
+    // console.log(dataWeather);
+    // console.log(dataWeather.name);
     let name = dataWeather.name;
     let wind = dataWeather.wind.speed;
     let temp = Math.round((dataWeather.main.temp - 32) / 1.8);
@@ -59,7 +44,7 @@ function showWeatherData() {
     let hours = time.getHours();
     let mins = time.getMinutes();
 
-    console.log(name);
     let string = `Locaton: ${name}<br/>Wind: ${wind}<br/>Temperature: ${temp}<br/>${hours}:${mins}`;
     p.innerHTML = string;
+    return dataWeather;
 }
