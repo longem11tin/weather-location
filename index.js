@@ -31,7 +31,7 @@ const p = document.querySelector('#weatherbug p');
 
 const fetchData = async() => {
     
-    const postApi = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherKey}&units=imperial`;
+    const postApi = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${openWeatherKey}&units=imperial`;
     const response = await fetch(postApi);
     const dataWeather = await response.json();
     // console.log(response);
